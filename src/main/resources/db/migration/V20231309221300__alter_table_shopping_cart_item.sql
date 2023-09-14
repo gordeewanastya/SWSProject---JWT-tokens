@@ -1,0 +1,1 @@
+ALTER TABLE "shopping_cart_item" ADD FOREIGN KEY ("cart_id") REFERENCES "shopping_cart" ("id");
