@@ -6,6 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +18,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -40,18 +45,11 @@ public class ProductEntity {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductEntity that = (ProductEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(productName, that.productName) && Objects.equals(qtyInStock, that.qtyInStock) && Arrays.equals(productImage, that.productImage) && Objects.equals(price, that.price);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(id, productName, qtyInStock, price);
-        result = 31 * result + Arrays.hashCode(productImage);
-        return result;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "product_configuration",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "variation_option_id", referencedColumnName = "id")
+    )
+    private List<VariationOptionEntity> variationOptionEntitiesList;
 }

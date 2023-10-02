@@ -25,20 +25,9 @@ public class PaymentTypeEntity {
     @Id
     @Column(name = "id")
     private Long id;
+
     @Basic
     @Column(name = "value")
     private String value;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PaymentTypeEntity that = (PaymentTypeEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(value, that.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, value);
-    }
 }

@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,26 +28,16 @@ public class ShoppingCartItemEntity {
     @Id
     @Column(name = "id")
     private Integer id;
-    @Basic
-    @Column(name = "cart_id")
-    private Integer cartId;
-    @Basic
-    @Column(name = "product_item_id")
-    private Integer productItemId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private ShoppingCartEntity cartId;
+
+    // TODO: 9/27/23 Probably will have to change the type of this relationship
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "product_item_id", referencedColumnName = "id")
+    private ProductEntity productItemId;
     @Basic
     @Column(name = "qty")
     private Integer qty;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ShoppingCartItemEntity that = (ShoppingCartItemEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(cartId, that.cartId) && Objects.equals(productItemId, that.productItemId) && Objects.equals(qty, that.qty);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, cartId, productItemId, qty);
-    }
 }

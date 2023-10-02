@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,35 +28,28 @@ public class UserPaymentMethodEntity {
     @Id
     @Column(name = "id")
     private Long id;
-    @Basic
-    @Column(name = "user_id")
-    private Long userId;
-    @Basic
-    @Column(name = "payment_type_id")
-    private Long paymentTypeId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserEntity userEntity;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "payment_type_id", referencedColumnName = "id")
+    private PaymentTypeEntity paymentTypeEntity;
+
     @Basic
     @Column(name = "provider")
     private String provider;
+
     @Basic
     @Column(name = "account_number")
     private String accountNumber;
+
     @Basic
     @Column(name = "expiry_date")
     private Timestamp expiryDate;
+
     @Basic
     @Column(name = "is_default")
     private Boolean isDefault;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserPaymentMethodEntity that = (UserPaymentMethodEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(userId, that.userId) && Objects.equals(paymentTypeId, that.paymentTypeId) && Objects.equals(provider, that.provider) && Objects.equals(accountNumber, that.accountNumber) && Objects.equals(expiryDate, that.expiryDate) && Objects.equals(isDefault, that.isDefault);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userId, paymentTypeId, provider, accountNumber, expiryDate, isDefault);
-    }
 }
