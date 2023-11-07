@@ -14,7 +14,7 @@
 	<name>ShoesWebStore</name>
 	<description>Project for online shoes web store</description>
 	<properties>
-		<java.version>15</java.version>
+		<java.version>17</java.version>
 		<flyway.user>postgres</flyway.user>
 		<flyway.password>postgres</flyway.password>
 		<flyway.url>jdbc:postgresql://localhost:5432/shoes_webstore</flyway.url>

@@ -31,11 +31,7 @@ public class ShoppingCartEntity {
     @Id
     @Column(name = "id")
     private Long id;
-
-    @Basic
-    @Column(name = "user_id")
-    private Long userId;
-
+    
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
