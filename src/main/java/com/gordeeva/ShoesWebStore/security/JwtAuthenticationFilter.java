@@ -52,6 +52,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
                 //update the SecurityContextHolder
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+
+                // save the token in the user's session
+                request.getSession().setAttribute("token", jwt);
             }
         }
         filterChain.doFilter(request,response);
